@@ -13,17 +13,12 @@ import com.jarvis.ahmedmagdy.jarvisminibot.API.ChatResponse;
 import com.jarvis.ahmedmagdy.jarvisminibot.API.ChatbotService;
 import com.jarvis.ahmedmagdy.jarvisminibot.API.WelcomeResponse;
 import com.jarvis.ahmedmagdy.jarvisminibot.Models.ChatBubble;
-import com.jarvis.ahmedmagdy.jarvisminibot.Models.NewsChatBubble;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Callback<ChatResponse> {
     private String uuid;
@@ -79,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ChatBody chatBody = new ChatBody(message);
                 Call<ChatResponse> call = chatbotService.chat(chatBody, uuid);
                 call.enqueue(this);
+                chatEt.setText("");
+                chatBubbles.add(new ChatBubble(message, false));
+                adapter.notifyDataSetChanged();
+                chatBubblesListView.smoothScrollToPosition(chatBubbles.size());
             } else {
                 Toast.makeText(getApplicationContext(), "Please write a message first", Toast.LENGTH_LONG).show();
             }
@@ -89,8 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
         String message = response.body().toString();
-        chatEt.setText("");
-        chatBubbles.add(new NewsChatBubble(message));
+        chatBubbles.add(new ChatBubble(message, true));
         adapter.notifyDataSetChanged();
         chatBubblesListView.smoothScrollToPosition(chatBubbles.size());
     }

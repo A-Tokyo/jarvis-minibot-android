@@ -8,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.jarvis.ahmedmagdy.jarvisminibot.Models.ChatBubble;
-import com.jarvis.ahmedmagdy.jarvisminibot.Models.NewsChatBubble;
-import com.jarvis.ahmedmagdy.jarvisminibot.Models.WeatherChatBubble;
 
 import java.util.ArrayList;
 
@@ -17,7 +15,7 @@ import java.util.ArrayList;
  * Created by ahmedmagdy on 11/29/16.
  */
 
-public class ListViewAdapter  extends BaseAdapter {
+public class ListViewAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<ChatBubble> dataSource;
@@ -25,7 +23,7 @@ public class ListViewAdapter  extends BaseAdapter {
     public ListViewAdapter(Context context, ArrayList<ChatBubble> chats) {
         this.context = context;
         this.dataSource = chats;
-        this.inflater= (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -46,23 +44,17 @@ public class ListViewAdapter  extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View rowView;
-        if(dataSource.get(i) instanceof NewsChatBubble){
-            rowView = inflater.inflate(R.layout.view_news_bubble, viewGroup, false);
-            populateNewsView(rowView, (NewsChatBubble) dataSource.get(i));
-        } else{
-            rowView = inflater.inflate(R.layout.view_news_bubble, viewGroup, false);
-            populateWeatherView(rowView, (WeatherChatBubble) dataSource.get(i));
+        TextView messageTV;
+        if (dataSource.get(i).isLeft()) {
+            rowView = inflater.inflate(R.layout.view_left_bubble, viewGroup, false);
+            messageTV = (TextView) rowView.findViewById(R.id.view_left_bubble_tv);
+        } else {
+            rowView = inflater.inflate(R.layout.view_right_bubble, viewGroup, false);
+            messageTV = (TextView) rowView.findViewById(R.id.view_right_bubble_tv);
         }
+        messageTV.setText(dataSource.get(i).getMessage());
+
         return rowView;
     }
 
-    private void populateWeatherView(View view, WeatherChatBubble chatBubble) {
-        TextView messagTv = (TextView) view.findViewById(R.id.view_weather_bubble_tv);
-        messagTv.setText(chatBubble.getMessage());
-    }
-
-    private void populateNewsView(View view, NewsChatBubble chatBubble){
-        TextView messagTv = (TextView) view.findViewById(R.id.view_news_bubble_tv);
-        messagTv.setText(chatBubble.getMessage());
-    }
 }
