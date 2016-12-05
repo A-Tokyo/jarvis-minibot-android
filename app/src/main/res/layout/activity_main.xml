@@ -1,38 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jarvis.ahmedmagdy.jarvisminibot.MainActivity">
-    <ListView
-        android:id="@+id/chat_bubbles_lv"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="42dp">
-    </ListView>
-    <LinearLayout
-        android:background="#fff"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
+    android:orientation="vertical">
 
-        <EditText
-            
-            android:id="@+id/chat_edit_text"
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:title="@string/app_name"
+        app:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/app_name"
+        app:titleTextColor="#212121">
+
+        <ProgressBar
+            android:id="@+id/main_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_margin="12dp" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.jarvis.ahmedmagdy.jarvisminibot.MainActivity">
+
+        <ListView
+            android:id="@+id/chat_bubbles_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="#00000000"
+            android:dividerHeight="0dp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Please enter your message" />
-
-        <Button
-            android:enabled="false"
-            android:id="@+id/chat_send_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_weight="0"
-            android:text="Send" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <EditText
+                android:background="@drawable/edit_text_shape"
+                android:id="@+id/chat_edit_text"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="6dp"
+                android:paddingLeft="12dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Please enter your message" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="8dp"
+                android:layout_weight="0"
+                android:enabled="false"
+                app:srcCompat="@drawable/ic_send" />
+        </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>

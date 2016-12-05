@@ -46,14 +46,19 @@ public class ListViewAdapter extends BaseAdapter {
         View rowView;
         TextView messageTV;
         if (dataSource.get(i).isLeft()) {
-            rowView = inflater.inflate(R.layout.view_left_bubble, viewGroup, false);
-            messageTV = (TextView) rowView.findViewById(R.id.view_left_bubble_tv);
+            if (dataSource.get(i).isError()) {
+                rowView = inflater.inflate(R.layout.view_error_bubble, viewGroup, false);
+                messageTV = (TextView) rowView.findViewById(R.id.view_error_bubble_tv);
+            } else {
+                rowView = inflater.inflate(R.layout.view_left_bubble, viewGroup, false);
+                messageTV = (TextView) rowView.findViewById(R.id.view_left_bubble_tv);
+            }
         } else {
             rowView = inflater.inflate(R.layout.view_right_bubble, viewGroup, false);
             messageTV = (TextView) rowView.findViewById(R.id.view_right_bubble_tv);
         }
-        messageTV.setText(dataSource.get(i).getMessage());
 
+        messageTV.setText(dataSource.get(i).getMessage());
         return rowView;
     }
 

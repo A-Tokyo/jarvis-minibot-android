@@ -7,10 +7,19 @@ package com.jarvis.ahmedmagdy.jarvisminibot.Models;
 public class ChatBubble {
     private String message;
     private boolean left;
-
-    public ChatBubble(String message, boolean left) {
+    private boolean error;
+    public ChatBubble(String message, boolean left, boolean error) {
         this.message = message;
         this.left = left;
+        this.error= error;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 
     public String getMessage() {
